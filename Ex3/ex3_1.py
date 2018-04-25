@@ -16,19 +16,11 @@ while True:
 
     # Lokking button pin state
     btn = GPIO.input(button)
-
-    # if GPIO 25's GPIO state is 1
-    # To blink LED 7 sec
-    # My student ID is s1240056
+    
     if btn:
         print("Blink 7 sec")
-        
-        for i in range(7):
-            GPIO.output(led, 1)
-            time.sleep(0.5)
-            GPIO.output(led, 0)
-            time.sleep(0.5)
-
+        GPIO.output(led, 1)
+        time.sleep(7)
         break
 
     time.sleep(1)
