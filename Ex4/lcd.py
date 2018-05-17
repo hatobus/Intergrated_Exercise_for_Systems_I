@@ -89,14 +89,14 @@ def main():
   while True:
 
     # Send some test
-    lcd_string("Created by         <",LCD_LINE_1)
-    lcd_string("Osoyoo.com        <",LCD_LINE_2)
+    lcd_string("Welcome ",LCD_LINE_1)
+    lcd_string("Good morning ",LCD_LINE_2)
 
     time.sleep(3)
   
     # Send some more text
-    lcd_string("> Tutorial Url:",LCD_LINE_1)
-    lcd_string("> http://osoyoo.com",LCD_LINE_2)
+    lcd_string("IES 1",LCD_LINE_1)
+    lcd_string("Exercise 4",LCD_LINE_2)
 
     time.sleep(3)
 
