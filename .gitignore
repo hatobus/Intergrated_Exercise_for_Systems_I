@@ -103,4 +103,4 @@ u# Spyder project settings
 
 # mypy
 .mypy_cache/
-.jpg
+*.jpg
