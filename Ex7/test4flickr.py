@@ -1,13 +1,21 @@
 import os
-import time
 import settings
-import json
+import shutil
+import requests
 from flickrapi import FlickrAPI
 
 
 FLICKRKEY = os.getenv("FLICKRKEY")
 FLICKRSECRET = os.getenv("FLICKRSECRET")
 MYID = os.getenv("MYUSERID")
+
+
+def downloadPicture(url, filename):
+    r = requests.get(url, stream=True)
+    if r.status_code == 200:
+        with open(filename, 'wb') as f:
+            r.raw.decode_content = True
+            shutil.copyfileobj(r.raw, f)
 
 waitTime = 10
 
@@ -31,3 +39,5 @@ url = "https://farm{0}.staticflickr.com/{1}/{2}_{3}.jpg".format(farmId, severId,
 
 print(farmId)
 print(url)
+
+downloadPicture(url, "downloadpic.jpg")
