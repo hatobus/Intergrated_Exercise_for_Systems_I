@@ -3,6 +3,7 @@ import settings
 import shutil
 import requests
 from flickrapi import FlickrAPI
+import random
 
 
 FLICKRKEY = os.getenv("FLICKRKEY")
@@ -17,10 +18,10 @@ def downloadPicture(url, filename):
             r.raw.decode_content = True
             shutil.copyfileobj(r.raw, f)
 
-waitTime = 10
+pageNum = 50
 
 flickr = FlickrAPI(FLICKRKEY, FLICKRSECRET, format='parsed-json')
-photos = flickr.photos_search(user_id=MYID, per_page='1')
+photos = flickr.photos_search(user_id=MYID, per_page=pageNum)
 
 print(photos)
 
@@ -28,16 +29,22 @@ print(photos)
 # URL is this
 # https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
 
-photoData = photos['photos']['photo'][0]
+urllist = []
 
-farmId = photoData['farm']
-severId = photoData['server']
-picId = photoData['id']
-idSecreat = photoData['secret']
+for i in range(pageNum):
+    photoData = photos['photos']['photo'][i]
 
-url = "https://farm{0}.staticflickr.com/{1}/{2}_{3}.jpg".format(farmId, severId, picId, idSecreat)
+    farmId = photoData['farm']
+    severId = photoData['server']
+    picId = photoData['id']
+    idSecreat = photoData['secret']
+    
+    url = "https://farm{0}.staticflickr.com/{1}/{2}_{3}.jpg".format(farmId, severId, picId, idSecreat)
+    
+    urllist.append(url)
 
-print(farmId)
-print(url)
+dlURL = random.choice(urllist)
 
-downloadPicture(url, "downloadpic.jpg")
+print(dlURL)
+
+downloadPicture(dlURL, "downloadpic.jpg")
