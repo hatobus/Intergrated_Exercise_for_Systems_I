@@ -12,7 +12,7 @@ MYID = os.getenv("MYUSERID")
 waitTime = 10
 
 flickr = FlickrAPI(FLICKRKEY, FLICKRSECRET, format='parsed-json')
-photos = flickr.photos_search(user_id=MYID, per_page='3')
+photos = flickr.photos_search(user_id=MYID, per_page='1')
 
 print(photos)
 
@@ -20,4 +20,4 @@ print(photos)
 # URL is this
 # https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
 
-
+farmId = photos['photos']
