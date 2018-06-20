@@ -20,4 +20,14 @@ print(photos)
 # URL is this
 # https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
 
-farmId = photos['photos']
+photoData = photos['photos']['photo'][0]
+
+farmId = photoData['farm']
+severId = photoData['server']
+picId = photoData['id']
+idSecreat = photoData['secret']
+
+url = "https://farm{0}.staticflickr.com/{1}/{2}_{3}.jpg".format(farmId, severId, picId, idSecreat)
+
+print(farmId)
+print(url)
