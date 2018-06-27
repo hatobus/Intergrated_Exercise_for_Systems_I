@@ -20,7 +20,7 @@ def downloadPicture(url, filename):
 
 pageNum = 50
 
-flickr = FlickrAPI(FLICKRKEY, FLICKRSECRET, format='parsed-json')
+flickr = FlickrAPI(FLICKRKEY.encode('utf-8'), FLICKRSECRET, format='parsed-json')
 photos = flickr.photos_search(user_id=MYID, per_page=pageNum)
 
 print(photos)
