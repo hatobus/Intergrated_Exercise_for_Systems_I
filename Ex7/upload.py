@@ -5,10 +5,12 @@ import takepic
 import time, datetime
 
 
+# http://sotarok.hatenablog.com/entry/20081218/1229579827
 FLICKRKEY = os.getenv("FLICKRKEY")
 FLICKRSECRET = os.getenv("FLICKRSECRET")
 MYID = os.getenv("MYUSERID")
 
+from auth_flickr import( FLICKRKEY )
 
 PIC = takepic.takePic()
 PIC.takePic()

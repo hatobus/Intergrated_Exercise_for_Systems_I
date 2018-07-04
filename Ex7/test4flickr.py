@@ -4,6 +4,7 @@ import shutil
 import requests
 from flickrapi import FlickrAPI
 import random
+import subprocess
 
 
 FLICKRKEY = os.getenv("FLICKRKEY")
@@ -17,6 +18,14 @@ def downloadPicture(url, filename):
         with open(filename, 'wb') as f:
             r.raw.decode_content = True
             shutil.copyfileobj(r.raw, f)
+
+def pictureConvert(name):
+    root, ext = os.path.splitext(name)
+    newext = ".png"
+    args = ['convert', name, root+newext]
+    res = subprocess.check_call(args)
+    print(res)
+
 
 pageNum = 50
 
@@ -48,3 +57,4 @@ dlURL = random.choice(urllist)
 print(dlURL)
 
 downloadPicture(dlURL, "downloadpic.jpg")
+pictureConvert("downloadpic.jpg")
