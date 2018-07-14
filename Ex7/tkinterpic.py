@@ -1,18 +1,42 @@
 import tkinter as tk
 from PIL import Image, ImageTk
-import random
+import IESpicture
+import subprocess
+import re
 
 
 def displayPhoto(event):
     cv.delete("all")
-    pic = ["./color_bar.png", "./lena.png", "./downloadpic.png"]
-    im = Image.open(random.choice(pic))
+    ies.choosePrintPicture()
+    cmd = "identify -format '%wx%h\\n' ./Image/downloadpic.png"
+
+    ret = subprocess.Popen(cmd.split(),
+                           stdin=subprocess.PIPE,
+                           stdout=subprocess.PIPE,
+                           stderr=subprocess.PIPE,
+                           shell=False
+                           )
+
+    size_byte = ret.stdout.readlines()[0]
+    size_utf_8 = size_byte.decode("UTF-8")
+    size_re = re.sub('\'|\\n', '', size_utf_8)
+    size_x, size_y = size_re.split("x")
+
+    scale_w = int(900/int(size_x))
+    scale_h = int(700/int(size_y))
+
+    im = Image.open("./Image/downloadpic.png")
+    #im.resize((scale_w, scale_h), Image.ANTIALIAS)
+    im = im.resize((900, 600), Image.LANCZOS)
     photo = ImageTk.PhotoImage(im)
-    cv.create_image(10, 10, image=photo, anchor='nw')
+    #photo.zoom(scale_w, scale_h)
+    cv.create_image(500, 400, image=photo)
     root.mainloop()
 
 def takePhoto(event):
     print("hoge")
+
+ies = IESpicture.iesPicture()
 
 root = tk.Tk()
 root.title("Smart Photo Frame") 

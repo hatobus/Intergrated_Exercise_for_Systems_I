@@ -53,8 +53,8 @@ class iesPicture():
 
         print(dlURL)
 
-        self.downloadPicture(dlURL, "downloadpic.jpg")
-        self.pictureConvert("downloadpic.jpg")
+        self.downloadPicture(dlURL, "./Image/downloadpic.jpg")
+        self.pictureConvert("./Image/downloadpic.jpg")
 
     def downloadPicture(self, url, filename):
         r = requests.get(url, stream=True)
