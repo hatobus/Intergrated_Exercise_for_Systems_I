@@ -6,6 +6,7 @@ from flickrapi import FlickrAPI
 import random
 import subprocess
 import json
+import lcd1602
 
 
 FLICKRKEY = os.getenv("FLICKRKEY")
@@ -29,13 +30,15 @@ class iesPicture():
 
             self.flickr.get_access_token(verifier)
 
+        self.LCD = lcd1602.LCD16021()
+
     def choosePrintPicture(self, pageNum=50):
         photos = self.flickr.photos_search(
             user_id=MYID,
             per_page=pageNum
         )
 
-        urllist = []
+        urltitledict = {}
 
         for i in range(pageNum):
             photoData = photos['photos']['photo'][i]
@@ -44,14 +47,18 @@ class iesPicture():
             severId = photoData['server']
             picId = photoData['id']
             idSecreat = photoData['secret']
+            title = photoData["title"]
 
             url = "https://farm{0}.staticflickr.com/{1}/{2}_{3}.jpg".format(farmId, severId, picId, idSecreat)
 
-            urllist.append(url)
+            urltitledict[url] = title
 
-        dlURL = random.choice(urllist)
+        dlURL, title = random.choice(list(urltitledict.items()))
 
         print(dlURL)
+
+        self.LCD.lcd_string("Title", 0x80)
+        self.LCD.lcd_string(title, 0xC0)
 
         self.downloadPicture(dlURL, "./Image/downloadpic.jpg")
         self.pictureConvert("./Image/downloadpic.jpg")
