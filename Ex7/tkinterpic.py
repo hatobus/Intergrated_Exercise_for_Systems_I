@@ -3,6 +3,7 @@ from PIL import Image, ImageTk
 import IESpicture
 import subprocess
 import re
+import webcam
 
 
 def displayPhoto(event):
@@ -34,12 +35,17 @@ def displayPhoto(event):
     root.mainloop()
 
 def takePhoto(event):
-    print("hoge")
+    cam.takePic()
+    uploadPictureFile = "./tookpic.uploadpic.jpg"
+
+    ies.uploadPhoto(uploadPictureFile)
+
 
 ies = IESpicture.iesPicture()
+cam = webcam.takePic()
 
 root = tk.Tk()
-root.title("Smart Photo Frame") 
+root.title("Smart Photo Frame")
 root.geometry("1000x800")
 
 Buttonchange = tk.Button(text="change picture", width=50)
