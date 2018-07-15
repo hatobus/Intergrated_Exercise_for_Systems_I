@@ -36,7 +36,7 @@ def displayPhoto(event):
 
 def takePhoto(event):
     cam.takePic()
-    uploadPictureFile = "./tookpic.uploadpic.jpg"
+    uploadPictureFile = "./tookpic/uploadpic.jpg"
 
     ies.uploadPhoto(uploadPictureFile)
 
@@ -52,7 +52,7 @@ Buttonchange = tk.Button(text="change picture", width=50)
 Buttontake = tk.Button(text="take picture", width=50)
 
 Buttonchange.bind("<Button-1>", displayPhoto)
-Buttontake.bind("<Button-2>", takePhoto)
+Buttontake.bind("<Button-1>", takePhoto)
 
 Buttonchange.pack()
 Buttontake.pack()
