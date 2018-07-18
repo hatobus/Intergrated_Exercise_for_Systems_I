@@ -9,6 +9,8 @@ import webcam
 def displayPhoto(event):
     cv.delete("all")
     ies.choosePrintPicture()
+
+    # 画像サイズを求める
     cmd = "identify -format '%wx%h\\n' ./Image/downloadpic.png"
 
     ret = subprocess.Popen(cmd.split(),
@@ -18,6 +20,7 @@ def displayPhoto(event):
                            shell=False
                            )
 
+    # 画像サイズを求めて、スケールするときの大きさを算出
     size_byte = ret.stdout.readlines()[0]
     size_utf_8 = size_byte.decode("UTF-8")
     size_re = re.sub('\'|\\n', '', size_utf_8)
@@ -27,10 +30,8 @@ def displayPhoto(event):
     scale_h = int(700/int(size_y))
 
     im = Image.open("./Image/downloadpic.png")
-    #im.resize((scale_w, scale_h), Image.ANTIALIAS)
     im = im.resize((900, 600), Image.LANCZOS)
     photo = ImageTk.PhotoImage(im)
-    #photo.zoom(scale_w, scale_h)
     cv.create_image(500, 400, image=photo)
     root.mainloop()
 
