@@ -9,7 +9,7 @@ flickrapi==2.4.0
 google-api-python-client==1.6.6
 greenlet==0.4.12
 hacking==1.0.0
-httplib2==0.11.3
+httplib2==0.18.0
 idna==2.6
 jmespath==0.9.3
 mccabe==0.2.1
